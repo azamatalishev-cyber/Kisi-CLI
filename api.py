@@ -16,8 +16,8 @@ class KisiApi:
     """ Class to interface with KISI API"""
 
     """ TWO DICTIONARIES TO USE WITH FUNCTIONS """
-    places = {'NY': 4977, 'DEN': 7574, 'SF': 5153}
-    groups = {'nygen': 5153, 'dengen': 14414, 'sfgen': 4952}
+    places = {}
+    groups = {}
 
     def __init__(self, email, password):
         self.session = requests.Session()
