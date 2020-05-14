@@ -1,6 +1,4 @@
 # kisi-python
-Python client and scripts for talking to the KISI API
-
 Re-engineered version of Jesse Joes script 
 
 https://github.com/jessejoe/kisi-python
