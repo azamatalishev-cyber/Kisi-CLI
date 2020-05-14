@@ -13,8 +13,6 @@ except ImportError:
 
 
 class KisiApi:
-    """ Class to interface with KISI API"""
-
     """ TWO DICTIONARIES TO USE WITH FUNCTIONS """
     places = {}
     groups = {}
@@ -29,8 +27,8 @@ class KisiApi:
         if not self.auth_token:
             logging.debug('Logging out')
 
+    """AUTHENTICATION FUNCTIONS"""
 
-    # AUTHENTICATON FUNCTIONS
     def login(self, email, password):
         """
         Login to API
@@ -83,7 +81,6 @@ class KisiApi:
         with open('data.json', 'w') as f:
             json.dump(data, f, indent=4, sort_keys=True)
 
-
     """"FUNCTIONS FOR PLACES AND CARDS"""
 
     def printCardToken(self, id):
@@ -92,7 +89,8 @@ class KisiApi:
         userName = user['name']
         pprint('Card Token for {} is {}'.format(userName, cardToken))
 
-    # De-assigns and Disables card from user
+    """De-assigns and Disables card from user"""
+
     def deassignCard(self, user_id):
         try:
             self.send_api('POST', '/members/{}/deassign_card'.format(user_id))
@@ -107,12 +105,12 @@ class KisiApi:
         except requests.exceptions.HTTPError:
             print('Card does not exist or is already disabled')
 
-    # FUNCTIONS FOR USERS
-    # This function will get all the ID's a user has
-    # IF A USER IS IN MULTIPLE PLACES, THEY WILL HAVE A DIFFERENT ID FOR EACH PLACE
-    # It will get all the Kisi members in Kisi
-    # We use a list comprehension here to create a list with the ID's a user might have
-    # Lastly, this function will return a list of ids for that user.
+    """FUNCTIONS FOR USERS
+    This function will get all the ID's a user has
+    IF A USER IS IN MULTIPLE PLACES, THEY WILL HAVE A DIFFERENT ID FOR EACH PLACE
+    It will get all the Kisi members in Kisi
+    We use a list comprehension here to create a list with the ID's a user might have
+    Lastly, this function will return a list of ids for that user."""
 
     def getUserInstancesById(self, name):
         allUsers = self.getAllMembers()
@@ -121,8 +119,9 @@ class KisiApi:
 
     def getUserIds(self, name):
         allUsers = self.getAllMembers()
-        userIds = [(i['id'],i['place']['name']) for i in allUsers if name.lower() in i['name'].lower()]
+        userIds = [(i['id'], i['place']['name']) for i in allUsers if name.lower() in i['name'].lower()]
         return userIds
+
     def getUserInstances(self, name):
         allUsers = self.getAllMembers()
         user = [i for i in allUsers if name.lower() in i['name'].lower()]
@@ -156,7 +155,8 @@ class KisiApi:
         self.createShare(groupID, placeID, email)
         pprint(resp.json())
 
-    # GETTER FUNCTIONS
+    """GETTER FUNCTIONS"""
+
     def getAllMembers(self):
         offset = 0
         limit = 100
@@ -171,25 +171,25 @@ class KisiApi:
         print('There are {} users in Greenhouse Kisi'.format(len(allUsers)))
         return allUsers
 
-    def getMembers(self,place):
-        offset= 0
+    def getMembers(self, place):
+        offset = 0
         limit = 50
         allUsers = []
         placeID = self.getPlaceId(place)
-        users = self.send_api('GET', '/members?place_id={}&limit={}&offset={}'.format(placeID,limit, offset)).json()
+        users = self.send_api('GET', '/members?place_id={}&limit={}&offset={}'.format(placeID, limit, offset)).json()
         allUsers.extend(users)
         while len(users) >= limit:
             offset = offset + limit
-            resp = self.send_api('GET', '/members?place_id={}&limit={}&offset={}'.format(placeID,limit, offset))
+            resp = self.send_api('GET', '/members?place_id={}&limit={}&offset={}'.format(placeID, limit, offset))
             users = resp.json()
             allUsers.extend(users)
-        print('There are {} users in {}'.format(len(allUsers),place))
+        print('There are {} users in {}'.format(len(allUsers), place))
         return allUsers
 
     def getAllPlaces(self):
         places = self.send_api('GET', '/places').json()
         all_places = [(i['name'], i['members_count']) for i in places]
-        print (all_places)
+        print(all_places)
 
     def getPlaceId(self, city):
         return self.places[city]
@@ -197,14 +197,13 @@ class KisiApi:
     def getGroupId(self, group):
         return self.groups[group]
 
-    # FUNCTIONS TO SOLVE PROBLEMS
+    """ ADHOC FUNCTIONS TO SOLVE PROBLEMS. FUR THE LULZ"""
+
     def getDenverUsersWithAppAccess(self):
         users = self.getMembers('DEN')
         # user_ids = [(i['name'],i['id']) for i in users if not i['login_enabled']]
         user_ids = [i for i in users if i['login_enabled']]
-
-        print ('{} users in Denver have app access'.format(len(user_ids)))
-        # return user_ids
+        print('{} users in Denver have app access'.format(len(user_ids)))
 
     def disableAppAccess(self, list):
         self.exportJsonList(list)
@@ -219,7 +218,8 @@ class KisiApi:
         user_ids = [i['id'] for i in users if i['login_enabled'] and not i['user']['otp_required_for_login']]
         pprint('There are {} users with App access on and 2FA not enabled '.format(len(user_ids)))
 
-    # Shares Access to a group E.G "General Staff Access"
+    """Shares Access to a group E.G "General Staff Access"""
+
     def createShare(self, group_id, place_id, email):
 
         data = {"share": {
@@ -233,11 +233,10 @@ class KisiApi:
     def bulkAddUsers(self, file):
         emails = self.convertCSVtoList(file)
         for email in emails:
-            self.provisionUser(email,'NY','nygen')
+            self.provisionUser(email, 'NY', 'nygen')
         print('Done Creating users')
 
-    def convertCSVtoList(self,file):
+    def convertCSVtoList(self, file):
         reader = pandas.read_csv(file)
         emails = [i for i in reader['Email']]
         return emails
-

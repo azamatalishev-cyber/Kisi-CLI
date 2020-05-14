@@ -3,11 +3,11 @@ import logging
 import argparse
 import getpass
 
-from api import KisiApi
+from src.api import KisiApi
 import boto3
 
-def main():
 
+def main():
     ssm = boto3.client('ssm', region_name='us-east-1')
 
     parameter1 = ssm.get_parameter(Name='kisiApiUser', WithDecryption=True)
@@ -45,8 +45,8 @@ def main():
                         )
     parser.add_argument('-bulkAddUsers',
                         '-bulkAddUsers',
-                         dest='bulkAddUsers',
-                         action='store_true',
+                        dest='bulkAddUsers',
+                        action='store_true',
                         help='Bulk adds users via csv to New York and adds them to General Staff group E.G(kisi.py -bulkAddUsers -csv test.csv'
                         )
     parser.add_argument('-name',
@@ -54,9 +54,9 @@ def main():
                         required=False
                         )
     parser.add_argument('-csv,',
-                       '--csv',
-                       required=False
-                      )
+                        '--csv',
+                        required=False
+                        )
     args = parser.parse_args()
 
     api = KisiApi(kisiApiUser, kisiPassword)
@@ -66,11 +66,12 @@ def main():
     if args.places:
         api.getAllPlaces()
     if args.createUser:
-        api.provisionUser(args.name,'NY','nygen')
+        api.provisionUser(args.name, 'NY', 'nygen')
     if args.deleteUser:
         api.deleteUser(args.name)
     if args.bulkAddUsers:
         api.bulkAddUsers(args.csv)
+
 
 if __name__ == "__main__":
     main()
