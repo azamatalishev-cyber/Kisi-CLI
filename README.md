@@ -12,10 +12,10 @@ https://github.com/jessejoe/kisi-python
 
 ### Example
 ```bash
-$usage: kisi.py [-h] [-v] [-printUser] [-getPlaces] [-createUser] [-deleteUser]\
-               [-bulkAddUsers] [-bulkRemoveUsers] [-getMembers]\
-               [-getDenverMembers] [-getAllEmails] [-name NAME] [-csv, CSV]\
-               [-place, PLACE]\
+$usage: kisi.py [-h] [-v] [-printUser] [-getPlaces] [-createUser] [-deleteUser]
+               [-bulkAddUsers] [-bulkRemoveUsers] [-getMembers]
+               [-getDenverMembers] [-getAllEmails] [-name NAME] [-csv, CSV]
+               [-place, PLACE]
 
 Command line interface to interact with Kisi
 
@@ -46,7 +46,7 @@ optional arguments:
   -getDenverMembers, -getDenverMembers
                         Gets emails for everyone in Denver
   -getAllEmails, -getAllEmails
-                        Gets emails for everyone and store CSV on desktop\
+                        Gets emails for everyone and store CSV on desktop
   -name NAME, --name NAME
   -csv, CSV, --csv CSV
   -place, PLACE, --place PLACE}
