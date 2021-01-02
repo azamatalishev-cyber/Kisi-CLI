@@ -3,7 +3,10 @@ Re-engineered version of Jesse Joes script
 
 https://github.com/jessejoe/kisi-python
 
-**NOTE: Secrets for this script are stored in AWS Parameter Store (boto3).Some functions were made specific to my work environment. Feel free to adjust accordingly to your convenience and whatever works for you**
+**NOTE: Secrets for this script are stored in AWS Parameter Store (boto3).Some functions were made specific to my work environment. Feel free to adjust accordingly to your convenience *
+
+### Requirements
+```bash pip install -r requirements.txt```
 
 ## `kisi.py`
 `kisi.py` is a wrapper for `api.py`, from here you will be able to access functions in api.py via argparse .

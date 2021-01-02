@@ -3,7 +3,7 @@ import logging
 import argparse
 import getpass
 
-from src.api import KisiApi
+from api import KisiApi
 import boto3
 
 
@@ -29,19 +29,19 @@ def main():
                         '--places',
                         dest='places',
                         action='store_true',
-                        help='Will print out the places in Greenhouse and the member count E.G (kisi.py -getPlaces)'
+                        help='Will print out all places and the member count E.G (kisi.py -getPlaces)'
                         )
     parser.add_argument('-createUser',
                         '--createUser',
                         dest='createUser',
                         action='store_true',
-                        help='Creates a user in New York and added to to the General Staff Group E.G ( kisi.py -createUser -name user@greenhouse.io)'
+                        help='Creates a user in New York and added to to the General Staff Group E.G ( kisi.py -createUser -name user@yourdomain.com)'
                         )
     parser.add_argument('-deleteUser',
                         '--deleteUser',
                         dest='deleteUser',
                         action='store_true',
-                        help='Deletes a user in all of Kisi instance.It will also disable and de-assign the card for the user. E.G(kisi.py -deleteUser -name user@greenouse.io)'
+                        help='Deletes a user in all of Kisi instance.It will also disable and de-assign the card for the user. E.G(kisi.py -deleteUser -name user@yourdomain.com)'
                         )
     parser.add_argument('-bulkAddUsers',
                         '-bulkAddUsers',
