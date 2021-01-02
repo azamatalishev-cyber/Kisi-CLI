@@ -8,10 +8,7 @@ https://github.com/jessejoe/kisi-python
 # Requirements
 ```bash pip install -r requirements.txt```
 
-## `kisi.py`
-`kisi.py` is a wrapper for `api.py`, from here you will be able to access functions in api.py via argparse .
-
-### Example
+# Usage
 ```bash
 $usage: kisi.py [-h] [-v] [-printUser] [-getPlaces] [-createUser] [-deleteUser]
                [-bulkAddUsers] [-bulkRemoveUsers] [-getMembers]
@@ -52,6 +49,9 @@ optional arguments:
   -csv, CSV, --csv CSV
   -place, PLACE, --place PLACE}
 ```
+
+## `kisi.py`
+`kisi.py` is a wrapper for `api.py`, from here you will be able to access functions in api.py via argparse .
 
 ## `api.py`
 `api.py` can be imported and used from outside scripts, for example:
