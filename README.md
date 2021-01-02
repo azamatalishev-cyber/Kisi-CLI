@@ -5,7 +5,7 @@ https://github.com/jessejoe/kisi-python
 
 **NOTE: Secrets for this script are stored in AWS Parameter Store (boto3).Some functions were made specific to my work environment. Feel free to adjust accordingly to your convenience *
 
-### Requirements
+# Requirements
 ```bash pip install -r requirements.txt```
 
 ## `kisi.py`
